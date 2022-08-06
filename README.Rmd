@@ -46,4 +46,3 @@ library(CCR)
 res <- ccr_wrapper("data/test.csv", "d", "data/test.csv", "q")
 res[ ,! names(res) %in% "embedding"]
 ```
-

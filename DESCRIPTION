@@ -12,9 +12,8 @@ RoxygenNote: 7.2.1
 Imports: 
     base,
     dplyr,
-    huggingfaceR,
     lsa,
     readr,
     reticulate,
     tidyr
-Remotes: farach/huggingfaceR
+StagedInstall: no
