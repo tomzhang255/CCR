@@ -30,12 +30,20 @@ You can install the development version of CCR from [GitHub](https://github.com/
 devtools::install_github("tomzhang255/CCR")
 ```
 
+## Note
+
+This package automatically installs Miniconda and https://github.com/farach/huggingfaceR in the background.
+
 ## Example
 
 This is a basic example of how to use the main wrapper function:
 
-```{r example}
+```{r include=FALSE}
 library(CCR)
+```
+
+```{r example}
 res <- ccr_wrapper("data/test.csv", "d", "data/test.csv", "q")
 res[ ,! names(res) %in% "embedding"]
 ```
+

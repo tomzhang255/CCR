@@ -19,15 +19,16 @@ You can install the development version of CCR from
 devtools::install_github("tomzhang255/CCR")
 ```
 
+## Note
+
+This package automatically installs Miniconda and
+<https://github.com/farach/huggingfaceR> in the background.
+
 ## Example
 
 This is a basic example of how to use the main wrapper function:
 
 ``` r
-library(CCR)
-#> <simpleError: Miniconda is already installed at path "~/Library/r-miniconda-arm64".
-#> - Use `reticulate::install_miniconda(force = TRUE)` to overwrite the previous installation.>
-#> + '/Users/tomzhang/Library/r-miniconda-arm64/bin/conda' 'install' '--yes' '--name' 'huggingfaceR' '-c' 'conda-forge' 'transformers' 'sentencepiece' 'huggingface_hub' 'datasets' 'sentence-transformers'
 res <- ccr_wrapper("data/test.csv", "d", "data/test.csv", "q")
 res[ ,! names(res) %in% "embedding"]
 #>                          q                           d sim_item_1 sim_item_2
