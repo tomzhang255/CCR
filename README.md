@@ -21,7 +21,7 @@ devtools::install_github("tomzhang255/CCR")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example of how to use the main wrapper function:
 
 ``` r
 library(CCR)
