@@ -1,0 +1,41 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# CCR
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The R implementation of CCR (Contextual Concept Representation), a better version of DDR (Dictionary Distribution Representation) for NLP.
+
+
+## Installation
+
+You can install the development version of CCR from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("tomzhang255/CCR")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(CCR)
+res <- ccr_wrapper("data/test.csv", "d", "data/test.csv", "q")
+res[ ,! names(res) %in% "embedding"]
+```
