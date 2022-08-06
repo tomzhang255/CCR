@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The R implementation of CCR (Contextual Concept Representation), a better version of DDR (Dictionary Distribution Representation) for NLP.
+The R implementation of CCR (Contextual Concept Representation), a better version of DDR (Dictionary Distribution Representation) for NLP. The original functions were implemented by [Ali Omrani](https://ali-omrani.github.io) in Python. This is a direct translation into R.
 
 
 ## Installation
