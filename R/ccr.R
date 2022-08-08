@@ -114,6 +114,3 @@ ccr_wrapper <- function(data_file, data_col, q_file, q_col, model = "all-MiniLM-
   # readr::write_csv(ccr_df, "ccr_results.csv")
   return(ccr_df)
 }
-
-
-df <- ccr_wrapper("data/test3.csv", "d", "data/test2.csv", "q")
