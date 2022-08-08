@@ -1,10 +1,10 @@
 # Function is run when this package is loaded, i.e., user calls library()
 .onLoad <- function(libname, pkgname) {
   # install_miniconda() gives an error if it's already installed
-  base::tryCatch({
+  tryCatch({
       reticulate::install_miniconda()
     }, error = function(e) {
-      print(e)
+      print(e)  # print, not stop
     })
 
   # the convention is to include Imports: huggingfaceR and Remotes: farach/huggingfaceR in DESCRIPTION

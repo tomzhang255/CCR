@@ -4,7 +4,7 @@
 \alias{ccr_wrapper}
 \title{CCR wrapper function}
 \usage{
-ccr_wrapper(data_file, data_col, q_file, q_col)
+ccr_wrapper(data_file, data_col, q_file, q_col, model = "all-MiniLM-L6-v2")
 }
 \arguments{
 \item{data_file}{Name of the csv file of user-supplied data}
@@ -14,6 +14,8 @@ ccr_wrapper(data_file, data_col, q_file, q_col)
 \item{q_file}{Name of the csv file of questionnaire data}
 
 \item{q_col}{Name of the questionnaire column}
+
+\item{model}{Name of a huggingface model (https://huggingface.co/models); "all-MiniLM-L6-v2" by default}
 }
 \value{
 A data frame with similarity score columns appended
