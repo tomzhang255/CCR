@@ -11,9 +11,13 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports: 
     base,
+    cld3,
     dplyr,
     lsa,
     readr,
+    readxl,
     reticulate,
-    tidyr
+    stringr,
+    tidyr,
+    tools
 StagedInstall: no

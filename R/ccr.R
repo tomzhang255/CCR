@@ -1,7 +1,59 @@
+# Helper function for encode_column()
+
+# check length of questionnaire items [issue error if 1 word; issue warning if 2 or 3 words]
+# check length of text [issue warning if fewer than 4 words]
+# returns new df - possibly with fewer rows
+validate_col_item_length <- function(df, file_name, col_name, col_type) {
+  col_item_lengths <- sapply(stringr::str_split(df[[col_name]], "\\s+"),
+                             function(x) {length(x)})
+
+  if (col_type == "q") {
+    # questionnaire item is legnth 1
+    nrow_old <- nrow(df)
+    df <- dplyr::filter(df, col_item_lengths > 1)
+    nrow_new <- nrow(df)
+    if (nrow_new < nrow_old) {
+      warning(paste0(nrow_old - nrow_new, " rows from column ", col_name, " in ", file_name,
+                     " contain only 1 word. These rows have been dropped. Row indices: "),
+              paste0(which(col_item_lengths == 1), collapse = ", "),
+              paste0("\n"))
+    }
+
+    # questionnaire item is legnth 2 or 3
+    len_two_three_idx <- which(col_item_lengths %in% c(2, 3))
+    if (length(len_two_three_idx) > 0) {
+      warning(paste0(length(len_two_three_idx), " rows from column ", col_name, " in ", file_name,
+                     " have only 2 or 3 words. Row indices: "),
+              paste0(len_two_three_idx, collapse = ", "),
+              paste0("\n"))
+    }
+
+  } else if (col_type == "d") {
+    # user data text < 4 words
+    len_four_less_idx <- which(col_item_lengths < 4)
+    if (length(len_four_less_idx > 0)) {
+      warning(paste0(length(len_four_less_idx), " rows from column ", col_name, " in ", file_name,
+                     " have less than 4 words. Row indices: "),
+              paste0(len_four_less_idx, collapse = ", "),
+              paste0("\n"))
+    }
+  }
+
+  return(df)
+}
+
+
 # Helper functions for ccr_wrapper()
 
-encode_column <- function(model, file_name, col_name) {
-  df <- readr::read_csv(file_name, show_col_types = FALSE)
+encode_column <- function(model, file_name, col_name, col_type) {
+  ext <- tools::file_ext(file_name)
+  if (ext == "csv") {
+    df <- readr::read_csv(file_name, show_col_types = FALSE)
+  } else if (ext %in% c("xls", "xlsx")) {
+    df <- suppressMessages(readxl::read_excel(file_name))
+  } else {
+    stop("Please upload a csv, xls, or xlsx file")
+  }
 
   # check if col_name exists in df
   if (!col_name %in% names(df)) {
@@ -15,21 +67,32 @@ encode_column <- function(model, file_name, col_name) {
     stop(paste0("Failed to coerce column ", col_name, " from ", file_name, " to type string"))
   })
 
-  # make sure column values are not too short
+  # check language in col
+  col_langs <- unique(cld3::detect_language(tidyr::drop_na(df, dplyr::all_of(col_name))[[col_name]]))
+
+  if (length(col_langs) > 1 | !"en" %in% col_langs) {
+    warning(paste0(paste0("Non-English language detected in column ", col_name, " from ", file_name,
+                   " . Languages detected by cld3: "),
+                   paste0(col_langs, collapse = ", "),
+                   paste0("\n")))
+  }
+
+  # drop NA's, issue warning if dropped any
   nrow_old <- nrow(df)
-  df <- dplyr::filter(df, nchar(.data[[col_name]]) >= 5)
   df <- tidyr::drop_na(df, dplyr::all_of(col_name))
   nrow_new <- nrow(df)
 
-  # issue message if values are dropped
   if (nrow_new < nrow_old) {
-    warning(paste0("Values in column ", col_name, " should be at least 5 characters long. ",
-                         nrow_old - nrow_new, " rows have been dropped; ",
-                         "these may be short sentences or NA's"))
+    warning(paste0(nrow_old - nrow_new, " NA's have been dropped from column ", col_name,
+                   " in ", file_name),
+            paste0("\n"))
   }
 
-  # check length
-  if (nrow_new < 1) {
+  # check length of column items
+  df <- validate_col_item_length(df, file_name, col_name, col_type)
+
+  # check row count
+  if (nrow(df) < 1) {
     stop(paste0("No rows left after cleaning column ", col_name, " in ", file_name))
   }
 
@@ -105,8 +168,8 @@ ccr_wrapper <- function(data_file, data_col, q_file, q_col, model = "all-MiniLM-
                 " failed. Make sure it exists on https://huggingface.co/models"))
   })
 
-  q_encoded_df <- encode_column(model, q_file, q_col)
-  data_encoded_df <- encode_column(model, data_file, data_col)
+  q_encoded_df <- encode_column(model, q_file, q_col, "q")
+  data_encoded_df <- encode_column(model, data_file, data_col, "d")
 
   ccr_df <- item_level_ccr(data_encoded_df, q_encoded_df)
   # ccr_df <- select(ccr_df, -embeddings)

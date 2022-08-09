@@ -1,0 +1,77 @@
+---
+title: "tests"
+author: "Siyuan (Tom) Zhang"
+date: "2022-08-09"
+output: html_document
+---
+
+Library
+
+```{r}
+library(tidyverse)
+library(reticulate)
+# install_miniconda()
+# install.packages("devtools")
+# devtools::install_github("farach/huggingfaceR")
+library(huggingfaceR)  # seems to require miniconda
+# hf_python_depends()
+library(lsa)
+```
+
+3 d rows, 3 q rows
+
+```{r}
+ccr_wrapper("../data/test.csv", "d", "../data/test.csv", "q")
+```
+
+3 d rows, 2 q rows
+
+```{r}
+ccr_wrapper("../data/test.csv", "d", "../data/test2.csv", "q")
+```
+
+2 d rows, 3 q rows
+
+```{r}
+ccr_wrapper("../data/test2.csv", "d", "../data/test.csv", "q")
+```
+
+3 d rows, 1 q row
+
+```{r}
+ccr_wrapper("../data/test.csv", "d", "../data/test6.csv", "q")
+```
+
+1 d row, 3 q rows
+
+```{r}
+ccr_wrapper("../data/test6.csv", "d", "../data/test.csv", "q")
+```
+
+1 d row, 1 q row
+
+```{r}
+ccr_wrapper("../data/test6.csv", "d", "../data/test6.csv", "q")
+```
+
+Test warnings
+
+```{r}
+ccr_wrapper("../data/test3.csv", "d", "../data/test3.csv", "q")
+```
+
+ERROR: No valid rows after cleaning
+
+```{r}
+ccr_wrapper("../data/test7.csv", "d", "../data/test7.csv", "q")
+```
+Test excel (6 d, 5 q)
+
+```{r}
+test3xl <- suppressMessages(read_excel("../data/test3.xlsx"))
+```
+
+```{r}
+ccr_wrapper("../data/test3.xlsx", "d", "../data/test3.xlsx", "q")
+```
+
