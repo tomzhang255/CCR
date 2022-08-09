@@ -44,7 +44,7 @@ library(CCR)
 
 ```{r example}
 res <- ccr_wrapper("data/test.csv", "d", "data/test.csv", "q")
-res[ ,! names(res) %in% "embedding"]
+res
 ```
 
 Or the user can launch a shiny app to perform the same tasks on a UI:
