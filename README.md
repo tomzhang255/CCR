@@ -33,6 +33,8 @@ This is a basic example of how to use the main wrapper function:
 
 ``` r
 res <- ccr_wrapper("data/test.csv", "d", "data/test.csv", "q")
+#> Warning in validate_col_item_length(df, file_name, col_name, col_type): 1 rows from column q in data/test.csv have only 2 or 3 words. Row indices: 1
+#> Warning in validate_col_item_length(df, file_name, col_name, col_type): 1 rows from column d in data/test.csv have less than 4 words. Row indices: 1
 res[ ,! names(res) %in% "embedding"]
 #>                          q                           d sim_item_1 sim_item_2
 #> 1        Here's a question            Here's an answer  0.7191870  0.4478848
@@ -42,4 +44,10 @@ res[ ,! names(res) %in% "embedding"]
 #> 1  0.4942263
 #> 2  0.4707657
 #> 3  0.7367636
+```
+
+Or the user can launch a shiny app to perform the same tasks on a UI:
+
+``` r
+ccr_shiny()
 ```
