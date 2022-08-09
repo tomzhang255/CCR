@@ -172,7 +172,7 @@ ccr_wrapper <- function(data_file, data_col, q_file, q_col, model = "all-MiniLM-
   data_encoded_df <- encode_column(model, data_file, data_col, "d")
 
   ccr_df <- item_level_ccr(data_encoded_df, q_encoded_df)
-  # ccr_df <- select(ccr_df, -embeddings)
+  ccr_df <- dplyr::select(ccr_df, -embedding)  # drop embedding col for aesthetic reasons
 
   # readr::write_csv(ccr_df, "ccr_results.csv")
   return(ccr_df)
