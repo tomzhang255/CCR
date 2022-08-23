@@ -17,6 +17,8 @@ Imports:
     readr,
     readxl,
     reticulate,
+    rhandsontable,
+    shinydashboard,
     stringr,
     tidyr,
     tools

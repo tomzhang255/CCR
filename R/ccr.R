@@ -68,7 +68,9 @@ encode_column <- function(model, file_name, col_name, col_type) {
   })
 
   # check language in col
-  col_langs <- unique(cld3::detect_language(tidyr::drop_na(df, dplyr::all_of(col_name))[[col_name]]))
+  col_langs_out <- cld3::detect_language_mixed(tidyr::drop_na(df, dplyr::all_of(col_name))[[col_name]])
+  col_langs <- dplyr::filter(col_langs_out, reliable == TRUE)$language
+  col_langs <- col_langs[!is.na(col_langs)]  # omit NA
 
   if (length(col_langs) > 1 | !"en" %in% col_langs) {
     warning(paste0(paste0("Non-English language detected in column ", col_name, " from ", file_name,
