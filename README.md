@@ -61,10 +61,6 @@ res
 #> 1        Here's a question            Here's an answer  0.7191870  0.4478848
 #> 2 This is another question We have yet a second answer  0.3696336  0.4954454
 #> 3    A third question here        A third answer there  0.4685105  0.4422214
-#>   sim_item_3
-#> 1  0.4942263
-#> 2  0.4707657
-#> 3  0.7367636
 ```
 
 In particular, “data/d.csv” is the path (the complete address, absolute
