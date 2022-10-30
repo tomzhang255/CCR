@@ -92,7 +92,7 @@ ccr_wrapper(). See a complete list of all possible models on
 
 ## Shiny App
 
-Additionally, one can call the function “ccr_shiny()” to launch a Shiny
+Additionally, one can call the function `ccr_shiny()` to launch a Shiny
 app locally and perform the same operations on a more user-friendly
 interface.
 
@@ -102,4 +102,38 @@ ccr_shiny()
 
 Figure 1 below is what a user might see upon launching the Shiny app:
 
-![Figure 1: Shiny app initial state](%22images/fig1.png%22)
+![Figure 1: Shiny app initial state](images/fig1.png)
+
+In the left sidebar, click on the first “Browse” button to upload the
+user data file (this corresponds with “d.csv” in the previous example).
+Note that a dropdown menu appears after the file upload; use it to
+select the appropriate column containing the actual user response (the
+“d” column). Upon finishing, the state of our Shiny app should resemble
+Figure 2 below.
+
+![Figure 2: Upload user data file and select column](images/fig2.png)
+
+Repeat the process to load in our questionnaire data using the second
+“Browse” button, then select the desired column (Figure 3).
+
+![Figure 3: Upload questionnaire data and select
+column](images/fig3.png)
+
+Click on the “Calculate” button in the sidebar to execute the CCR
+process. Now, in the main panel we see a resulting data frame (see
+Figure 4).
+
+![Figure 4: Output](images/fig4.png)
+
+This is the exact same output as one would get using the function
+`ccr_wrapper()`. The console section displays any warnings or errors
+upon executing `ccr_wrapper()`. The “Display rows” controller lets the
+user limit the rows in the output to display. Furthermore, by clicking
+on the “Download Result” button in the sidebar, one can download the
+complete result data frame.
+
+## References
+
+Wang, Wenhui, et al. “Minilm: Deep self-attention distillation for
+task-agnostic compression of pre-trained transformers.” Advances in
+Neural Information Processing Systems 33 (2020): 5776-5788.
