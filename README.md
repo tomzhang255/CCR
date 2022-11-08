@@ -72,7 +72,9 @@ supports excel files as well (.xls, .xlsx). “d” would then be the name
 corresponding to the column in “data/d.csv” containing said data.
 Similarly, “data/q.csv” is the file path for the questionnaire (i.e.,
 the validated psychometric scale to use). And “q” would be the column in
-“data/q.csv” that contains these questionnaire items.
+“data/q.csv” that contains these questionnaire items. Note that the file
+names can also be substituted with R data frame objects, if the user has
+already imported their data.
 
 The output of the function is a data frame of identical structure as
 “data/d.csv” but with a few extra columns appended. The number of these

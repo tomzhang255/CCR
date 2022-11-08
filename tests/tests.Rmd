@@ -24,6 +24,18 @@ library(lsa)
 ccr_wrapper("../data/test.csv", "d", "../data/test.csv", "q")
 ```
 
+```{r}
+ccr_wrapper(read_csv("../data/test.csv"), "d", "../data/test.csv", "q")
+```
+
+```{r}
+ccr_wrapper("../data/test.csv", "d", read_csv("../data/test.csv"), "q")
+```
+
+```{r}
+ccr_wrapper(read_csv("../data/test.csv"), "d", read_csv("../data/test.csv"), "q")
+```
+
 3 d rows, 2 q rows
 
 ```{r}

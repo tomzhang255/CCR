@@ -46,13 +46,18 @@ validate_col_item_length <- function(df, file_name, col_name, col_type) {
 # Helper functions for ccr_wrapper()
 
 encode_column <- function(model, file_name, col_name, col_type) {
-  ext <- tools::file_ext(file_name)
-  if (ext == "csv") {
-    df <- readr::read_csv(file_name, show_col_types = FALSE)
-  } else if (ext %in% c("xls", "xlsx")) {
-    df <- suppressMessages(readxl::read_excel(file_name))
-  } else {
-    stop("Please upload a csv, xls, or xlsx file")
+  if (is.character(file_name)) {
+    ext <- tools::file_ext(file_name)
+    if (ext == "csv") {
+      df <- readr::read_csv(file_name, show_col_types = FALSE)
+    } else if (ext %in% c("xls", "xlsx")) {
+      df <- suppressMessages(readxl::read_excel(file_name))
+    } else {
+      stop("Please upload a csv, xls, or xlsx file")
+    }
+  } else {  # passed in data frame
+    df <- file_name
+    file_name <- deparse(substitute(file_name))  # convert R object to string (name)
   }
 
   # check if col_name exists in df
@@ -143,9 +148,9 @@ item_level_ccr <- function(data_encoded_df, questionnaire_encoded_df) {
 
 #' CCR wrapper function
 #'
-#' @param data_file Name of the csv file of user-supplied data
+#' @param data_file Name of the csv file of user-supplied data, or an R data frame
 #' @param data_col Name of the relevant data column
-#' @param q_file Name of the csv file of questionnaire data
+#' @param q_file Name of the csv file of questionnaire data, or an R data frame
 #' @param q_col Name of the questionnaire column
 #' @param model Name of a huggingface model (https://huggingface.co/models); "all-MiniLM-L6-v2" by default
 #'
@@ -156,9 +161,9 @@ item_level_ccr <- function(data_encoded_df, questionnaire_encoded_df) {
 #' ccr_wrapper("data/test.csv", "d", "data/test.csv", "q")
 ccr_wrapper <- function(data_file, data_col, q_file, q_col, model = "all-MiniLM-L6-v2") {
   # basic argument validation - data types
-  stopifnot(is.character(data_file),
+  stopifnot(is.character(data_file) | is.data.frame(data_file),
                   is.character(data_col),
-                  is.character(q_file),
+                  is.character(q_file) | is.data.frame(q_file),
                   is.character(q_col),
                   is.character(model))
 

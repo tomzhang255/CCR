@@ -7,11 +7,11 @@
 ccr_wrapper(data_file, data_col, q_file, q_col, model = "all-MiniLM-L6-v2")
 }
 \arguments{
-\item{data_file}{Name of the csv file of user-supplied data}
+\item{data_file}{Name of the csv file of user-supplied data, or an R data frame}
 
 \item{data_col}{Name of the relevant data column}
 
-\item{q_file}{Name of the csv file of questionnaire data}
+\item{q_file}{Name of the csv file of questionnaire data, or an R data frame}
 
 \item{q_col}{Name of the questionnaire column}
 
