@@ -21,69 +21,69 @@ library(lsa)
 3 d rows, 3 q rows
 
 ```{r}
-ccr_wrapper("../data/test.csv", "d", "../data/test.csv", "q")
+ccr_wrapper("../inst/extdata/test.csv", "d", "../inst/extdata/test.csv", "q")
 ```
 
 ```{r}
-ccr_wrapper(read_csv("../data/test.csv"), "d", "../data/test.csv", "q")
+ccr_wrapper(read_csv("../inst/extdata/test.csv"), "d", "../inst/extdata/test.csv", "q")
 ```
 
 ```{r}
-ccr_wrapper("../data/test.csv", "d", read_csv("../data/test.csv"), "q")
+ccr_wrapper("../inst/extdata/test.csv", "d", read_csv("../inst/extdata/test.csv"), "q")
 ```
 
 ```{r}
-ccr_wrapper(read_csv("../data/test.csv"), "d", read_csv("../data/test.csv"), "q")
+ccr_wrapper(read_csv("../inst/extdata/test.csv"), "d", read_csv("../inst/extdata/test.csv"), "q")
 ```
 
 3 d rows, 2 q rows
 
 ```{r}
-ccr_wrapper("../data/test.csv", "d", "../data/test2.csv", "q")
+ccr_wrapper("../inst/extdata/test.csv", "d", "../inst/extdata/test2.csv", "q")
 ```
 
 2 d rows, 3 q rows
 
 ```{r}
-ccr_wrapper("../data/test2.csv", "d", "../data/test.csv", "q")
+ccr_wrapper("../inst/extdata/test2.csv", "d", "../inst/extdata/test.csv", "q")
 ```
 
 3 d rows, 1 q row
 
 ```{r}
-ccr_wrapper("../data/test.csv", "d", "../data/test6.csv", "q")
+ccr_wrapper("../inst/extdata/test.csv", "d", "../inst/extdata/test6.csv", "q")
 ```
 
 1 d row, 3 q rows
 
 ```{r}
-ccr_wrapper("../data/test6.csv", "d", "../data/test.csv", "q")
+ccr_wrapper("../inst/extdata/test6.csv", "d", "../inst/extdata/test.csv", "q")
 ```
 
 1 d row, 1 q row
 
 ```{r}
-ccr_wrapper("../data/test6.csv", "d", "../data/test6.csv", "q")
+ccr_wrapper("../inst/extdata/test6.csv", "d", "../inst/extdata/test6.csv", "q")
 ```
 
 Test warnings
 
 ```{r}
-ccr_wrapper("../data/test3.csv", "d", "../data/test3.csv", "q")
+ccr_wrapper("../inst/extdata/test3.csv", "d", "../inst/extdata/test3.csv", "q")
 ```
 
 ERROR: No valid rows after cleaning
 
 ```{r}
-ccr_wrapper("../data/test7.csv", "d", "../data/test7.csv", "q")
+ccr_wrapper("../inst/extdata/test7.csv", "d", "../inst/extdata/test7.csv", "q")
 ```
 Test excel (6 d, 5 q)
 
 ```{r}
-test3xl <- suppressMessages(read_excel("../data/test3.xlsx"))
+test3xl <- suppressMessages(read_excel("../inst/extdata/test3.xlsx"))
 ```
 
 ```{r}
-ccr_wrapper("../data/test3.xlsx", "d", "../data/test3.xlsx", "q")
+ccr_wrapper("../inst/extdata/test3.xlsx", "d", "../inst/extdata/test3.xlsx", "q")
 ```
 

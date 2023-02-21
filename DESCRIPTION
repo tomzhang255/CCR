@@ -21,5 +21,10 @@ Imports:
     shinyjs,
     stringr,
     tidyr,
-    tools
+    tools,
+    huggingfaceR,
+    shiny,
+    devtools
+Remotes:
+    farach/huggingfaceR
 StagedInstall: no

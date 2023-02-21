@@ -53,9 +53,9 @@ Note that this package automatically installs Miniconda and
 Here is a simple example of how to use the main function:
 
 ``` r
-res <- ccr_wrapper("data/d.csv", "d", "data/q.csv", "q")
-#> Warning in validate_col_item_length(df, file_name, col_name, col_type): 1 rows from column q in data/q.csv have only 2 or 3 words. Row indices: 1
-#> Warning in validate_col_item_length(df, file_name, col_name, col_type): 1 rows from column d in data/d.csv have less than 4 words. Row indices: 1
+res <- ccr_wrapper("inst/extdata/d.csv", "d", "inst/extdata/q.csv", "q")
+#> Warning in validate_col_item_length(df, file_name, col_name, col_type): 1 rows from column q in inst/extdata/q.csv have only 2 or 3 words. Row indices: 1
+#> Warning in validate_col_item_length(df, file_name, col_name, col_type): 1 rows from column d in inst/extdata/d.csv have less than 4 words. Row indices: 1
 res
 #>                          q                           d sim_item_1 sim_item_2
 #> 1        Here's a question            Here's an answer  0.7191870  0.4478848
@@ -100,7 +100,7 @@ ccr_shiny()
 
 Figure 1 below is what a user might see upon launching the Shiny app:
 
-![Figure 1: Shiny app initial state](images/fig1.png)
+![Figure 1: Shiny app initial state](man/figures/fig1.png)
 
 In the left sidebar, click on the first “Browse” button to upload the
 user data file (this corresponds with “d.csv” in the previous example).
@@ -109,19 +109,20 @@ select the appropriate column containing the actual user response (the
 “d” column). Upon finishing, the state of our Shiny app should resemble
 Figure 2 below.
 
-![Figure 2: Upload user data file and select column](images/fig2.png)
+![Figure 2: Upload user data file and select
+column](man/figures/fig2.png)
 
 Repeat the process to load in our questionnaire data using the second
 “Browse” button, then select the desired column (Figure 3).
 
 ![Figure 3: Upload questionnaire data and select
-column](images/fig3.png)
+column](man/figures/fig3.png)
 
 Click on the “Calculate” button in the sidebar to execute the CCR
 process. Now, in the main panel we see a resulting data frame (see
 Figure 4).
 
-![Figure 4: Output](images/fig4.png)
+![Figure 4: Output](man/figures/fig4.png)
 
 This is the exact same output as one would get using the function
 `ccr_wrapper()`. The console section displays any warnings or errors

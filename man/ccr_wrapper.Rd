@@ -23,6 +23,3 @@ A data frame with similarity score columns appended
 \description{
 CCR wrapper function
 }
-\examples{
-ccr_wrapper("data/test.csv", "d", "data/test.csv", "q")
-}

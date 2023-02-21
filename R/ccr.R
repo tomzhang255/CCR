@@ -74,7 +74,7 @@ encode_column <- function(model, file_name, col_name, col_type) {
 
   # check language in col
   col_langs_out <- cld3::detect_language_mixed(tidyr::drop_na(df, dplyr::all_of(col_name))[[col_name]])
-  col_langs <- dplyr::filter(col_langs_out, reliable == TRUE)$language
+  col_langs <- dplyr::filter(col_langs_out, .data[["reliable"]] == TRUE)$language
   col_langs <- col_langs[!is.na(col_langs)]  # omit NA
 
   if (length(col_langs) > 1 | !"en" %in% col_langs) {
@@ -156,9 +156,6 @@ item_level_ccr <- function(data_encoded_df, questionnaire_encoded_df) {
 #'
 #' @return A data frame with similarity score columns appended
 #' @export
-#'
-#' @examples
-#' ccr_wrapper("data/test.csv", "d", "data/test.csv", "q")
 ccr_wrapper <- function(data_file, data_col, q_file, q_col, model = "all-MiniLM-L6-v2") {
   # basic argument validation - data types
   stopifnot(is.character(data_file) | is.data.frame(data_file),
@@ -172,14 +169,15 @@ ccr_wrapper <- function(data_file, data_col, q_file, q_col, model = "all-MiniLM-
     model <- huggingfaceR::hf_load_sentence_model(model)
   }, error = function(e) {
     stop(paste0("Loading model ", model,
-                " failed. Make sure it exists on https://huggingface.co/models"))
+                " failed. Make sure it exists on https://huggingface.co/models",
+                "Error message: ", e))
   })
 
   q_encoded_df <- encode_column(model, q_file, q_col, "q")
   data_encoded_df <- encode_column(model, data_file, data_col, "d")
 
   ccr_df <- item_level_ccr(data_encoded_df, q_encoded_df)
-  ccr_df <- dplyr::select(ccr_df, -embedding)  # drop embedding col for aesthetic reasons
+  ccr_df <- dplyr::select(ccr_df, -.data[["embedding"]])  # drop embedding col for aesthetic reasons
 
   # readr::write_csv(ccr_df, "ccr_results.csv")
   return(ccr_df)
