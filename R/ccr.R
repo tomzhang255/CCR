@@ -155,7 +155,19 @@ item_level_ccr <- function(data_encoded_df, questionnaire_encoded_df) {
 #' @param model Name of a huggingface model (https://huggingface.co/models); "all-MiniLM-L6-v2" by default
 #'
 #' @return A data frame with similarity score columns appended
+#'
 #' @export
+#'
+#' @examples
+#' \dontrun{
+#' # option 1: pass in file paths directly
+#' res <- ccr_wrapper("inst/extdata/d.csv", "d", "inst/extdata/q.csv", "q")
+#'
+#' # option 2: pass in pre-loaded data frames
+#' df_d <- readr::read_csv("inst/extdata/d.csv")
+#' df_q <- readr::read_csv("inst/extdata/q.csv")
+#' res <- ccr_wrapper(df_d, "d", df_q, "q")
+#' }
 ccr_wrapper <- function(data_file, data_col, q_file, q_col, model = "all-MiniLM-L6-v2") {
   # basic argument validation - data types
   stopifnot(is.character(data_file) | is.data.frame(data_file),
@@ -164,21 +176,41 @@ ccr_wrapper <- function(data_file, data_col, q_file, q_col, model = "all-MiniLM-
                   is.character(q_col),
                   is.character(model))
 
+  # validate python dependency
+  if (!"sentence_transformer" %in% names(reticulate::py) ||
+      reticulate::py_is_null_xptr(reticulate::py$sentence_transformer)) {
+    res <-
+      tryCatch({
+        reticulate::py_run_string("from sentence_transformers import SentenceTransformer as sentence_transformer")
+      }, error = function(e) {
+        e
+      })
+
+    if ("error" %in% class(res)) {
+      if (stringr::str_detect(res$message, "Python specified in RETICULATE_PYTHON")) {
+        stop("Conda environment not set up; make sure to run `ccr_setup()` first.")
+      }
+      if (stringr::str_detect(res$message, "No module named")) {
+        stop("Missing python dependencies; make sure to run `ccr_setup()` first.")
+      }
+    }
+  }
+
   # validate model name
   tryCatch({
-    model <- huggingfaceR::hf_load_sentence_model(model)
+    model <- reticulate::py$sentence_transformer(model)
   }, error = function(e) {
     stop(paste0("Loading model ", model,
                 " failed. Make sure it exists on https://huggingface.co/models",
                 "Error message: ", e))
   })
 
+  # the actual work
   q_encoded_df <- encode_column(model, q_file, q_col, "q")
   data_encoded_df <- encode_column(model, data_file, data_col, "d")
 
   ccr_df <- item_level_ccr(data_encoded_df, q_encoded_df)
-  ccr_df <- dplyr::select(ccr_df, -.data[["embedding"]])  # drop embedding col for aesthetic reasons
+  ccr_df <- dplyr::select(ccr_df, -dplyr::all_of("embedding"))  # drop embedding col for aesthetic reasons
 
-  # readr::write_csv(ccr_df, "ccr_results.csv")
   return(ccr_df)
 }

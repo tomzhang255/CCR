@@ -1,9 +1,5 @@
 library(tidyverse)
 library(reticulate)
-# install_miniconda()
-# install.packages("devtools")
-# library(huggingfaceR)  # seems to require miniconda
-# hf_python_depends()
 library(lsa)
 library(readxl)
 library(cld3)
@@ -164,14 +160,36 @@ ccr_wrapper <- function(data_df, data_file, data_col, q_df, q_file, q_col, model
             is.character(q_col),
             is.character(model))
 
+  # validate python dependency
+  if (!"sentence_transformer" %in% names(reticulate::py) ||
+      reticulate::py_is_null_xptr(reticulate::py$sentence_transformer)) {
+    res <-
+      tryCatch({
+        reticulate::py_run_string("from sentence_transformers import SentenceTransformer as sentence_transformer")
+      }, error = function(e) {
+        e
+      })
+
+    if ("error" %in% class(res)) {
+      if (stringr::str_detect(res$message, "Python specified in RETICULATE_PYTHON")) {
+        stop("Conda environment not set up; make sure to run `ccr_setup()` first.")
+      }
+      if (stringr::str_detect(res$message, "No module named")) {
+        stop("Missing python dependencies; make sure to run `ccr_setup()` first.")
+      }
+    }
+  }
+
   # validate model name
   tryCatch({
-    model <- huggingfaceR::hf_load_sentence_model(model)
+    model <- reticulate::py$sentence_transformer(model)
   }, error = function(e) {
     stop(paste0("Loading model ", model,
-                " failed. Make sure it exists on https://huggingface.co/models"))
+                " failed. Make sure it exists on https://huggingface.co/models",
+                "Error message: ", e))
   })
 
+  # the actual work
   q_encoded_df <- encode_column(model, q_df, q_file, q_col, "q")
   data_encoded_df <- encode_column(model, data_df, data_file, data_col, "d")
 

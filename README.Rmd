@@ -43,17 +43,16 @@ The original functions for CCR were implemented. This is a direct translation in
 devtools::install_github("tomzhang255/CCR")
 ```
 
-Note that this package automatically installs Miniconda and
-<https://github.com/farach/huggingfaceR> in the background.
-
-
 ## Usage
-
-Here is a simple example of how to use the main function:
 
 ```{r include=FALSE}
 library(CCR)
+ccr_setup()
 ```
+
+Before the user can perform any NLP related operations, they should run `ccr_setup()` which installs Miniconda, creates a Conda environment, activates the Conda environment, and installs Python dependencies. Underneath the hood, this R package actually runs its transformers in Python, specifically with the `sentence-transformer` Python package.
+
+Here is a simple example of how to use the main function:
 
 ```{r example}
 res <- ccr_wrapper("inst/extdata/d.csv", "d", "inst/extdata/q.csv", "q")
@@ -77,20 +76,20 @@ ccr_shiny()
 
 Figure 1 below is what a user might see upon launching the Shiny app:
 
-![Figure 1: Shiny app initial state](man/figures/fig1.png)
+![Figure 1: Shiny app initial state](man/figures/fig1.jpeg)
 
 In the left sidebar, click on the first “Browse” button to upload the user data file (this corresponds with “d.csv” in the previous example). Note that a dropdown menu appears after the file upload; use it to select the appropriate column containing the actual user response (the “d” column). Upon finishing, the state of our Shiny app should resemble Figure 2 below.
 
-![Figure 2: Upload user data file and select column](man/figures/fig2.png)
+![Figure 2: Upload user data file and select column](man/figures/fig2.jpeg)
 
 
 Repeat the process to load in our questionnaire data using the second “Browse” button, then select the desired column (Figure 3).
 
-![Figure 3: Upload questionnaire data and select column](man/figures/fig3.png)
+![Figure 3: Upload questionnaire data and select column](man/figures/fig3.jpeg)
 
 Click on the “Calculate” button in the sidebar to execute the CCR process. Now, in the main panel we see a resulting data frame (see Figure 4).
 
-![Figure 4: Output](man/figures/fig4.png)
+![Figure 4: Output](man/figures/fig4.jpeg)
 
 This is the exact same output as one would get using the function `ccr_wrapper()`. The console section displays any warnings or errors upon executing `ccr_wrapper()`. The “Display rows” controller lets the user limit the rows in the output to display. Furthermore, by clicking on the “Download Result” button in the sidebar, one can download the complete result data frame.
 

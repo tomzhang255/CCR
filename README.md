@@ -45,10 +45,13 @@ can install the development version of CCR from
 devtools::install_github("tomzhang255/CCR")
 ```
 
-Note that this package automatically installs Miniconda and
-<https://github.com/farach/huggingfaceR> in the background.
-
 ## Usage
+
+Before the user can perform any NLP related operations, they should run
+`ccr_setup()` which installs Miniconda, creates a Conda environment,
+activates the Conda environment, and installs Python dependencies.
+Underneath the hood, this R package actually runs its transformers in
+Python, specifically with the `sentence-transformer` Python package.
 
 Here is a simple example of how to use the main function:
 
@@ -58,9 +61,9 @@ res <- ccr_wrapper("inst/extdata/d.csv", "d", "inst/extdata/q.csv", "q")
 #> Warning in validate_col_item_length(df, file_name, col_name, col_type): 1 rows from column d in inst/extdata/d.csv have less than 4 words. Row indices: 1
 res
 #>                          q                           d sim_item_1 sim_item_2
-#> 1        Here's a question            Here's an answer  0.7191870  0.4478848
+#> 1        Here's a question            Here's an answer  0.7191870  0.4478846
 #> 2 This is another question We have yet a second answer  0.3696336  0.4954454
-#> 3    A third question here        A third answer there  0.4685105  0.4422214
+#> 3    A third question here        A third answer there  0.4685104  0.4422212
 ```
 
 In particular, “data/d.csv” is the path (the complete address, absolute
@@ -100,7 +103,7 @@ ccr_shiny()
 
 Figure 1 below is what a user might see upon launching the Shiny app:
 
-![Figure 1: Shiny app initial state](man/figures/fig1.png)
+![Figure 1: Shiny app initial state](man/figures/fig1.jpeg)
 
 In the left sidebar, click on the first “Browse” button to upload the
 user data file (this corresponds with “d.csv” in the previous example).
@@ -110,19 +113,19 @@ select the appropriate column containing the actual user response (the
 Figure 2 below.
 
 ![Figure 2: Upload user data file and select
-column](man/figures/fig2.png)
+column](man/figures/fig2.jpeg)
 
 Repeat the process to load in our questionnaire data using the second
 “Browse” button, then select the desired column (Figure 3).
 
 ![Figure 3: Upload questionnaire data and select
-column](man/figures/fig3.png)
+column](man/figures/fig3.jpeg)
 
 Click on the “Calculate” button in the sidebar to execute the CCR
 process. Now, in the main panel we see a resulting data frame (see
 Figure 4).
 
-![Figure 4: Output](man/figures/fig4.png)
+![Figure 4: Output](man/figures/fig4.jpeg)
 
 This is the exact same output as one would get using the function
 `ccr_wrapper()`. The console section displays any warnings or errors
