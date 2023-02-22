@@ -47,6 +47,16 @@ devtools::install_github("tomzhang255/CCR")
 
 ## Usage
 
+``` r
+library(CCR)
+ccr_setup()
+#> 
+#> Installing python dependencies in conda environment CCR
+#> + '/Users/tomzhang/Library/r-miniconda-arm64/bin/conda' 'install' '--yes' '--name' 'CCR' '-c' 'conda-forge' 'transformers' 'sentencepiece' 'huggingface_hub' 'datasets' 'sentence-transformers'
+#> 
+#> Successfully installed python dependencies
+```
+
 Before the user can perform any NLP related operations, they should run
 `ccr_setup()` which installs Miniconda, creates a Conda environment,
 activates the Conda environment, and installs Python dependencies.

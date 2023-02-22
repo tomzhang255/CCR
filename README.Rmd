@@ -45,7 +45,7 @@ devtools::install_github("tomzhang255/CCR")
 
 ## Usage
 
-```{r include=FALSE}
+```{r}
 library(CCR)
 ccr_setup()
 ```
