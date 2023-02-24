@@ -1,21 +1,17 @@
 ---
 title: "tests"
-author: "Siyuan (Tom) Zhang"
+author: "Tom Zhang"
 date: "2022-08-09"
 output: html_document
 ---
 
-Library
+Library and setup
 
 ```{r}
-library(tidyverse)
-library(reticulate)
-# install_miniconda()
-# install.packages("devtools")
-# devtools::install_github("farach/huggingfaceR")
-library(huggingfaceR)  # seems to require miniconda
-# hf_python_depends()
-library(lsa)
+library(readr)
+library(readxl)
+library(CCR)
+ccr_setup()
 ```
 
 3 d rows, 3 q rows
@@ -72,7 +68,7 @@ Test warnings
 ccr_wrapper("../inst/extdata/test3.csv", "d", "../inst/extdata/test3.csv", "q")
 ```
 
-ERROR: No valid rows after cleaning
+Expect ERROR: No valid rows after cleaning
 
 ```{r}
 ccr_wrapper("../inst/extdata/test7.csv", "d", "../inst/extdata/test7.csv", "q")
@@ -85,5 +81,9 @@ test3xl <- suppressMessages(read_excel("../inst/extdata/test3.xlsx"))
 
 ```{r}
 ccr_wrapper("../inst/extdata/test3.xlsx", "d", "../inst/extdata/test3.xlsx", "q")
+```
+
+```{r}
+ccr_wrapper(test3xl, "d", test3xl, "q")
 ```
 
