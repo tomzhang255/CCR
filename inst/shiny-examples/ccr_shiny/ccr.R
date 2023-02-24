@@ -1,4 +1,6 @@
-library(tidyverse)
+library(dplyr)
+library(stringr)
+library(tidyr)
 library(reticulate)
 library(lsa)
 library(readxl)
