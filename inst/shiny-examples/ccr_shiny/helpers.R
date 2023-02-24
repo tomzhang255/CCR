@@ -1,3 +1,7 @@
+library(readr)
+library(readxl)
+
+
 validate_file <- function(input_file) {
   ext <- tools::file_ext(input_file$datapath)
   validate(need(ext %in% c("csv", "xls", "xlsx"), "\tPlease upload a csv or excel file"))
@@ -7,7 +11,7 @@ validate_file <- function(input_file) {
 
 render_select_col_ui <- function(input_file, id, label, values, value_id) {
   ext <- validate_file(input_file)
-  
+
   if (ext == "csv") {
     data <- read_csv(input_file$datapath)
   } else {
