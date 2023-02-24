@@ -34,11 +34,10 @@ as follows:
 
 ## Installation
 
-The original functions for CCR were implemented. This is a direct
-translation into R using the following packages: tidyverse (data
-manipulation), lsa (cosine similarity), and huggingfaceR (modeling). You
-can install the development version of CCR from
-[GitHub](https://github.com/) with:
+This R implementation of CCR mainly utilizes the following packages:
+`tidyverse` (data manipulation), `lsa` (cosine similarity), and
+`reticulate` (Python session to run transformers on). You can install
+the development version of CCR from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
