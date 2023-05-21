@@ -8,8 +8,15 @@ which is how this R package works under the hood.}
 \usage{
 ccr_setup()
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 Call this function when it's your first time installing this package.
 This will set up the miniconda environment for python,
 which is how this R package works under the hood.
+}
+\examples{
+ccr_setup()
+
 }

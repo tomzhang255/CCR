@@ -148,6 +148,8 @@ item_level_ccr <- function(data_encoded_df, questionnaire_encoded_df) {
 
 #' CCR wrapper function
 #'
+#' Must run ccr_setup() beforehand
+#'
 #' @param data_file Name of the csv file of user-supplied data, or an R data frame
 #' @param data_col Name of the relevant data column
 #' @param q_file Name of the csv file of questionnaire data, or an R data frame
@@ -157,17 +159,6 @@ item_level_ccr <- function(data_encoded_df, questionnaire_encoded_df) {
 #' @return A data frame with similarity score columns appended
 #'
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#' # option 1: pass in file paths directly
-#' res <- ccr_wrapper("inst/extdata/d.csv", "d", "inst/extdata/q.csv", "q")
-#'
-#' # option 2: pass in pre-loaded data frames
-#' df_d <- readr::read_csv("inst/extdata/d.csv")
-#' df_q <- readr::read_csv("inst/extdata/q.csv")
-#' res <- ccr_wrapper(df_d, "d", df_q, "q")
-#' }
 ccr_wrapper <- function(data_file, data_col, q_file, q_col, model = "all-MiniLM-L6-v2") {
   # basic argument validation - data types
   stopifnot(is.character(data_file) | is.data.frame(data_file),

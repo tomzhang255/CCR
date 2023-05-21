@@ -6,6 +6,9 @@
 \usage{
 ccr_shiny()
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 Launches a user-friendly interface (shiny app) for this package
 }

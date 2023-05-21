@@ -2,7 +2,13 @@
 #' This will set up the miniconda environment for python,
 #' which is how this R package works under the hood.
 #'
+#' @return No return value, called for side effects.
+#'
 #' @export
+#'
+#' @examples
+#' ccr_setup()
+#'
 ccr_setup <- function() {
   # install miniconda
   base::tryCatch({

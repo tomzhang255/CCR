@@ -3,8 +3,8 @@ library(shinydashboard)
 library(rhandsontable)
 library(shinyjs)
 
-source("ccr.R")
-source("helpers.R")
+source("ccr.R", local = TRUE)
+source("helpers.R", local = TRUE)
 
 
 ui <- dashboardPage(
@@ -105,10 +105,4 @@ server <- function(input, output) {
   )
 }
 
-shinyApp(ui, server, onStart = function() {
-  onStop(function() {  # clear shiny helper functions from env after shiny quits
-    rm(list = c("ccr_wrapper", "encode_column", "item_level_ccr",
-                "render_hot", "render_select_col_ui",
-                "validate_col_item_length", "validate_file"), envir = .GlobalEnv)
-  })
-})
+shinyApp(ui, server)

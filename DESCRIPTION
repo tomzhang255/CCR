@@ -1,9 +1,11 @@
 Package: CCR
 Title: Contextual Concept Representation (CCR)
-Version: 1.0.0
-Authors@R: 
-    person("Tom", "Zhang", email = "zhangsiyuan777@gmail.com", role = c("aut", "cre"))
-Description: The R implementation of CCR (Contextual Concept Representation), a better version of DDR (Dictionary Distribution Representation) for NLP.
+Version: 1.0.1
+Authors@R: c(
+    person("Tom", "Zhang", email = "zhangsiyuan777@gmail.com", role = c("aut", "cre")),
+    person("Mohammad", "Atari", email = "m.atari.psy@gmail.com", role = "ctb")
+    )
+Description: Conduct theory-driven psychological text analysis by mutating a set of text and a psychometric scale into word embeddings using pre-trained transformers; where cosine similarities are then calculated to compare the text of interest with the psychometric scale items.
 URL: https://github.com/tomzhang255/CCR
 License: MIT + file LICENSE
 Encoding: UTF-8

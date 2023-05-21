@@ -21,16 +21,5 @@ ccr_wrapper(data_file, data_col, q_file, q_col, model = "all-MiniLM-L6-v2")
 A data frame with similarity score columns appended
 }
 \description{
-CCR wrapper function
-}
-\examples{
-\dontrun{
-# option 1: pass in file paths directly
-res <- ccr_wrapper("inst/extdata/d.csv", "d", "inst/extdata/q.csv", "q")
-
-# option 2: pass in pre-loaded data frames
-df_d <- readr::read_csv("inst/extdata/d.csv")
-df_q <- readr::read_csv("inst/extdata/q.csv")
-res <- ccr_wrapper(df_d, "d", df_q, "q")
-}
+Must run ccr_setup() beforehand
 }

@@ -1,5 +1,7 @@
 #' Launches a user-friendly interface (shiny app) for this package
 #'
+#' @return No return value, called for side effects.
+#'
 #' @export
 ccr_shiny <- function() {
   appDir <- system.file("shiny-examples", "ccr_shiny", package = "CCR")
